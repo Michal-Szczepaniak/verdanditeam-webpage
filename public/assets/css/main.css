@@ -3273,7 +3273,7 @@
 		}
 
 		.wrapper.style3-alt {
-			background-color: #953d75;
+			background-color: #0D47A1;
 		}
 
 		.wrapper.fullscreen {
@@ -3872,7 +3872,7 @@
 
 		}
 
-		@media screen and (max-width: 736px) {
+		@media screen and (max-width: 580px) {
 
 			#sidebar {
 				display: none;
