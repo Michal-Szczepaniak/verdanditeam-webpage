@@ -54,6 +54,11 @@ class Device
     /**
      * @ORM\Column(type="text")
      */
+    private $description_long;
+
+    /**
+     * @ORM\Column(type="text")
+     */
     private $working_list;
 
     /**
@@ -181,6 +186,18 @@ class Device
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDescriptionLong(): ?string
+    {
+        return $this->description_long;
+    }
+
+    public function setDescriptionLong(string $description_long): self
+    {
+        $this->description_long = $description_long;
 
         return $this;
     }
