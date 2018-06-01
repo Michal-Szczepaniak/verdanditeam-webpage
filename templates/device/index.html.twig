@@ -46,7 +46,7 @@
             <h1>{{ device.namePretty }}</h1>
             <p>{{ device.description }}</p>
             <ul class="actions">
-                <li><a href="#one" class="button scrolly">Learn more</a></li>
+                <li><a href="/" class="button">Go back to main page</a></li>
             </ul>
         </div>
     </section>
@@ -58,6 +58,7 @@
                 <div class="inner">
                     <h2>Features</h2>
                     <ul>
+                            <li>SailfishOS {{ device.sfosVersion }}</li>
                         {% for feature in device.workingList %}
                             <li>{{ feature }}</li>
                         {% endfor %}
@@ -99,40 +100,55 @@
             <h4>CyanogenMod base for</h4>
             <ul class="actions">
                 {% for name,link in device.downloadCm %}
-                <li><a class="button" href="{{ link }}">{{ name }}</a></li>
+                <li><a class="button" target="_blank" href="{{ link }}">{{ name }}</a></li>
                 {% endfor %}
             </ul>
 
             <h4>SailfishOS rootfs for</h4>
             <ul class="actions">
-                <li><a class="button" href="http://images.devaamo.fi/sfe/titan/sailfishos-titan-release-2.1.4.14-STABLE7.zip">Moto G2</a></li>
-                <li><a class="button" href="http://images.devaamo.fi/sfe/titan/sailfishos-thea-release-2.1.4.14-STABLE7.zip">Moto G2 LTE</a></li>
+                {% for name,link in device.downloadSfos %}
+                    <li><a class="button" target="_blank" href="{{ link }}">{{ name }}</a></li>
+                {% endfor %}
             </ul>
 
+            {% if device.downloadLogo is not null %}
             <h4>Optional bootlogo</h4>
             <ul class="actions">
-                <li><a class="button" href="https://forum.xda-developers.com/devdb/project/dl/?id=29220">bootlogo</a></li>
+                <li><a class="button" target="_blank" href="{{ device.downloadLogo }}">bootlogo</a></li>
             </ul>
+            {% endif %}
 
             <h3>Preparations</h3>
             <ol>
-                <li>Unlock Bootloader <a href="https://motorola-global-en-uk.custhelp.com/app/standalone/bootloader/unlock-your-device-a">here</a>.</li>
-                <li>Install TWRP for <a href="https://twrp.me/motorola/motorolamotog2014.html">Moto G2</a> or <a href="https://twrp.me/motorola/motorolamotog2014.html">Moto G2 LTE</a>.</li>
+                {% for row in device.installPreparations %}
+                    <li>{{ row|raw }}</li>
+                {% endfor %}
             </ol>
 
             <h3>Installation</h3>
             <ol>
-                <li>Move all ZIP files to internal memory or SD card</li>
-                <li>Wipe data, cache, system (Remember to make backup of your data first!)</li>
-                <li>Install CyanogenMod base</li>
-                <li>Go to reboot and select "Recovery"</li>
-                <li>Install SailfishOS rootfs</li>
-                <li>Optionally install bootlogo</li>
-                <li>Reboot phone</li>
-                <li>Congratulations! You have now SailfishOS installed!</li>
+                {% for row in device.installInstructions %}
+                    <li>{{ row|raw }}</li>
+                {% endfor %}
             </ol>
         </div>
     </section>
+
+    {% if device.haveOta %}
+    <!-- Second Two -->
+    <section id="two" class="wrapper style3-alt fade-up">
+        <div class="inner">
+            <h2>OTA Instructions</h2>
+            <p>{{ device.otaDescription|raw }}</p>
+
+            <ol>
+                {% for row in device.otaInstructions %}
+                    <li>{{ row|raw }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </section>
+    {% endif %}
 
     <!-- Three -->
     <section id="three" class="wrapper style1 fade-up">
