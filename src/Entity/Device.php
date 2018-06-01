@@ -32,12 +32,12 @@ class Device
     private $have_ota;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $xda_link;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $broken_list;
 
@@ -47,44 +47,54 @@ class Device
     private $name_pretty;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $working_list;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $install_description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $download_cm;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $download_sfos;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $download_logo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $install_preparations;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $install_instructions;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $ota_description;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $ota_instructions;
 
     public function getId()
     {
@@ -255,6 +265,30 @@ class Device
     public function setInstallInstructions(string $install_instructions): self
     {
         $this->install_instructions = $install_instructions;
+
+        return $this;
+    }
+
+    public function getOtaDescription(): ?string
+    {
+        return $this->ota_description;
+    }
+
+    public function setOtaDescription(?string $ota_description): self
+    {
+        $this->ota_description = $ota_description;
+
+        return $this;
+    }
+
+    public function getOtaInstructions(): ?array
+    {
+        return json_decode($this->ota_instructions, true);
+    }
+
+    public function setOtaInstructions(?string $ota_instructions): self
+    {
+        $this->ota_instructions = $ota_instructions;
 
         return $this;
     }
