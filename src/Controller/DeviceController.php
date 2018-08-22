@@ -21,4 +21,14 @@ class DeviceController extends Controller
 
         return array('device' => $device);
     }
+
+    /**
+     * @Route("/device/list/", name="list")
+     * @Template()
+     */
+    public function list() {
+        $devices = $this->getDoctrine()->getRepository(Device::class)->findAll();
+
+        return array('devices' => $devices);
+    }
 }
