@@ -130,7 +130,7 @@ class Device
         return $this;
     }
 
-    public function getHaveOta(): ?bool
+    public function getHasOta(): ?bool
     {
         return $this->have_ota;
     }

@@ -6,30 +6,103 @@ use App\Entity\Device;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class ApiController extends Controller
 {
     /**
-     * @Route("/api/device/{name}", name="device")
-     * @Template()
+     * @Route("/api/device/list", name="api_list")
      */
-    public function index($name)
+    public function list()
+    {
+        $devices = $this->getDoctrine()->
+            getRepository(Device::class)->findAll();
+
+        $devicesPrepared = $this->prepareDevicesList($devices);
+
+        return new JsonResponse($devicesPrepared);
+    }
+
+    /**
+     * @Route("/api/device/{name}", name="api_device")
+     */
+    public function device($name)
+    {
+        $device = $this->getDoctrine()->
+        getRepository(Device::class)->
+        findOneBy(['name' => $name]);
+
+        $info = $this->getDeviceInfo($device);
+
+        return new JsonResponse($info);
+    }
+
+    /**
+     * @Route("/api/device/{name}/links", name="api_links")
+     */
+    public function links($name)
     {
         $device = $this->getDoctrine()->
             getRepository(Device::class)->
             findOneBy(['name' => $name]);
 
-        return array('device' => $device);
+        $links = $this->getLinksFromDevice($device);
+
+        return new JsonResponse($links);
     }
 
     /**
-     * @Route("/api/device/list", name="api_list")
-     * @Template()
+     * Create array with limited device properties
+     *
+     * @param array $devices
+     * @return array
      */
-    public function list() {
-        $devices = $this->getDoctrine()->getRepository(Device::class)->findAll();
+    private function prepareDevicesList(array $devices)
+    {
+        $devicesArray = [];
 
-        return new JsonResponse($devices);
+        /** @var Device $device */
+        foreach ($devices as $device) {
+            $devicesArray[] = [
+                'codename' => $device->getName(),
+                'name_pretty' => $device->getNamePretty(),
+                'description' => $device->getDescription(),
+                'description_long' => $device->getDescriptionLong()
+            ];
+        }
+
+        return $devicesArray;
+    }
+
+    /**
+     * Get download links
+     *
+     * @param $device Device
+     * @return array
+     */
+    private function getLinksFromDevice($device)
+    {
+        $links = [
+            'cm' => $device->getDownloadCm(),
+            'sfos' => $device->getDownloadSfos(),
+            'logo' => $device->getDownloadLogo()
+        ];
+
+        return $links;
+    }
+
+    /**
+     * Get device info
+     *
+     * @param $device Device
+     * @return array
+     */
+    private function getDeviceInfo($device)
+    {
+        $info = [
+            'sfos_version' => $device->getSfosVersion(),
+            'has_ota' => $device->getHasOta(),
+            'has_logo' => $device->getDownloadLogo() !== null
+        ];
+        return $info;
     }
 }
