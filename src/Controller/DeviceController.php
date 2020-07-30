@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Device;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DeviceController extends Controller
 {
@@ -13,10 +15,11 @@ class DeviceController extends Controller
      * @Route("/device/list", name="list")
      * @Template()
      */
-    public function list() {
-        $devices = $this->getDoctrine()->getRepository(Device::class)->findAll();
+    public function list()
+    {
+        $devices = $this->getDoctrine()->getRepository(Device::class)->findAllByOrder();
 
-        return array('devices' => $devices);
+        return ['devices' => $devices];
     }
 
     /**
@@ -29,6 +32,6 @@ class DeviceController extends Controller
             getRepository(Device::class)->
             findOneBy(['name' => $name]);
 
-        return array('device' => $device);
+        return ['device' => $device];
     }
 }

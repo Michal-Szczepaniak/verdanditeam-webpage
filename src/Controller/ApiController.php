@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Device;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ApiController extends Controller
 {
@@ -53,7 +55,6 @@ class ApiController extends Controller
     /**
      * Create array with limited device properties
      *
-     * @param array $devices
      * @return array
      */
     private function prepareDevicesList(array $devices)
@@ -66,7 +67,7 @@ class ApiController extends Controller
                 'codename' => $device->getName(),
                 'name_pretty' => $device->getNamePretty(),
                 'description' => $device->getDescription(),
-                'description_long' => $device->getDescriptionLong()
+                'description_long' => $device->getDescriptionLong(),
             ];
         }
 
@@ -77,6 +78,7 @@ class ApiController extends Controller
      * Get download links
      *
      * @param $device Device
+     *
      * @return array
      */
     private function getLinksFromDevice($device)
@@ -84,7 +86,7 @@ class ApiController extends Controller
         $links = [
             'cm' => $device->getDownloadCm(),
             'sfos' => $device->getDownloadSFOS(),
-            'logo' => $device->getDownloadLogo()
+            'logo' => $device->getDownloadLogo(),
         ];
 
         return $links;
@@ -94,6 +96,7 @@ class ApiController extends Controller
      * Get device info
      *
      * @param $device Device
+     *
      * @return array
      */
     private function getDeviceInfo($device)
@@ -101,8 +104,9 @@ class ApiController extends Controller
         $info = [
             'sfos_version' => $device->getSfosVersion(),
             'has_ota' => $device->getHasOta(),
-            'has_logo' => $device->getDownloadLogo() !== null
+            'has_logo' => $device->getDownloadLogo() !== null,
         ];
+
         return $info;
     }
 }
