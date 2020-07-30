@@ -83,7 +83,7 @@ class ApiController extends Controller
     {
         $links = [
             'cm' => $device->getDownloadCm(),
-            'sfos' => $device->getDownloadSfos(),
+            'sfos' => $device->getDownloadSFOS(),
             'logo' => $device->getDownloadLogo()
         ];
 

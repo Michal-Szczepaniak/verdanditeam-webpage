@@ -10,6 +10,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DeviceController extends Controller
 {
     /**
+     * @Route("/device/list", name="list")
+     * @Template()
+     */
+    public function list() {
+        $devices = $this->getDoctrine()->getRepository(Device::class)->findAll();
+
+        return array('devices' => $devices);
+    }
+
+    /**
      * @Route("/device/{name}", name="device")
      * @Template()
      */
@@ -20,15 +30,5 @@ class DeviceController extends Controller
             findOneBy(['name' => $name]);
 
         return array('device' => $device);
-    }
-
-    /**
-     * @Route("/device/list/", name="list")
-     * @Template()
-     */
-    public function list() {
-        $devices = $this->getDoctrine()->getRepository(Device::class)->findAll();
-
-        return array('devices' => $devices);
     }
 }

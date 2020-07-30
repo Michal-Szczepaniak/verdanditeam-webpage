@@ -24,22 +24,22 @@ class Device
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $sfos_version;
+    private $sfosVersion;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $have_ota;
+    private $hasOta;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $xda_link;
+    private $xdaLink;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $broken_list;
+    private $brokenList;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,52 +54,52 @@ class Device
     /**
      * @ORM\Column(type="text")
      */
-    private $description_long;
+    private $descriptionLong;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $working_list;
+    private $workingList;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $install_description;
+    private $installDescription;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $download_cm;
+    private $downloadCm;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $download_sfos;
+    private $downloadSFOS;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $download_logo;
+    private $downloadLogo;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $install_preparations;
+    private $installPreparations;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $install_instructions;
+    private $installInstructions;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $ota_description;
+    private $otaDescription;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $ota_instructions;
+    private $otaInstructions;
 
     public function getId()
     {
@@ -120,48 +120,48 @@ class Device
 
     public function getSfosVersion(): ?string
     {
-        return $this->sfos_version;
+        return $this->sfosVersion;
     }
 
-    public function setSfosVersion(string $sfos_version): self
+    public function setSfosVersion(string $sfosVersion): self
     {
-        $this->sfos_version = $sfos_version;
+        $this->sfosVersion = $sfosVersion;
 
         return $this;
     }
 
     public function getHasOta(): ?bool
     {
-        return $this->have_ota;
+        return $this->hasOta;
     }
 
-    public function setHaveOta(bool $have_ota): self
+    public function setHasOta(bool $hasOta): self
     {
-        $this->have_ota = $have_ota;
+        $this->hasOta = $hasOta;
 
         return $this;
     }
 
     public function getXdaLink(): ?string
     {
-        return $this->xda_link;
+        return $this->xdaLink;
     }
 
-    public function setXdaLink(string $xda_link): self
+    public function setXdaLink(string $xdaLink): self
     {
-        $this->xda_link = $xda_link;
+        $this->xdaLink = $xdaLink;
 
         return $this;
     }
 
     public function getBrokenList(): ?array
     {
-        return json_decode($this->broken_list,true);
+        return json_decode($this->brokenList, true);
     }
 
-    public function setBrokenList(string $broken_list): self
+    public function setBrokenList(string $brokenList): self
     {
-        $this->broken_list = $broken_list;
+        $this->brokenList = $brokenList;
 
         return $this;
     }
@@ -192,120 +192,120 @@ class Device
 
     public function getDescriptionLong(): ?string
     {
-        return $this->description_long;
+        return $this->descriptionLong;
     }
 
-    public function setDescriptionLong(string $description_long): self
+    public function setDescriptionLong(string $descriptionLong): self
     {
-        $this->description_long = $description_long;
+        $this->descriptionLong = $descriptionLong;
 
         return $this;
     }
 
     public function getWorkingList(): ?array
     {
-        return json_decode($this->working_list,true);
+        return json_decode($this->workingList, true);
     }
 
-    public function setWorkingList(string $working_list): self
+    public function setWorkingList(string $workingList): self
     {
-        $this->working_list = $working_list;
+        $this->workingList = $workingList;
 
         return $this;
     }
 
     public function getInstallDescription(): ?string
     {
-        return $this->install_description;
+        return $this->installDescription;
     }
 
-    public function setInstallDescription(string $install_description): self
+    public function setInstallDescription(string $installDescription): self
     {
-        $this->install_description = $install_description;
+        $this->installDescription = $installDescription;
 
         return $this;
     }
 
     public function getDownloadCm(): ?array
     {
-        return json_decode($this->download_cm,true);
+        return json_decode($this->downloadCm, true);
     }
 
-    public function setDownloadCm(string $download_cm): self
+    public function setDownloadCm(string $downloadCm): self
     {
-        $this->download_cm = $download_cm;
+        $this->downloadCm = $downloadCm;
 
         return $this;
     }
 
-    public function getDownloadSfos(): ?array
+    public function getDownloadSFOS(): ?array
     {
-        return json_decode($this->download_sfos,true);
+        return json_decode($this->downloadSFOS, true);
     }
 
-    public function setDownloadSfos(string $download_sfos): self
+    public function setDownloadSFOS(string $downloadSFOS): self
     {
-        $this->download_sfos = $download_sfos;
+        $this->downloadSFOS = $downloadSFOS;
 
         return $this;
     }
 
     public function getDownloadLogo(): ?string
     {
-        return $this->download_logo;
+        return $this->downloadLogo;
     }
 
-    public function setDownloadLogo(string $download_logo): self
+    public function setDownloadLogo(string $downloadLogo): self
     {
-        $this->download_logo = $download_logo;
+        $this->downloadLogo = $downloadLogo;
 
         return $this;
     }
 
     public function getInstallPreparations(): ?array
     {
-        return json_decode($this->install_preparations,true);
+        return json_decode($this->installPreparations, true);
     }
 
-    public function setInstallPreparations(string $install_preparations): self
+    public function setInstallPreparations(string $installPreparations): self
     {
-        $this->install_preparations = $install_preparations;
+        $this->installPreparations = $installPreparations;
 
         return $this;
     }
 
     public function getInstallInstructions(): ?array
     {
-        return json_decode($this->install_instructions,true);
+        return json_decode($this->installInstructions, true);
     }
 
-    public function setInstallInstructions(string $install_instructions): self
+    public function setInstallInstructions(string $installInstructions): self
     {
-        $this->install_instructions = $install_instructions;
+        $this->installInstructions = $installInstructions;
 
         return $this;
     }
 
     public function getOtaDescription(): ?string
     {
-        return $this->ota_description;
+        return $this->otaDescription;
     }
 
-    public function setOtaDescription(?string $ota_description): self
+    public function setOtaDescription(?string $otaDescription): self
     {
-        $this->ota_description = $ota_description;
+        $this->otaDescription = $otaDescription;
 
         return $this;
     }
 
     public function getOtaInstructions(): ?array
     {
-        return json_decode($this->ota_instructions, true);
+        return json_decode($this->otaInstructions, true);
     }
 
-    public function setOtaInstructions(?string $ota_instructions): self
+    public function setOtaInstructions(?string $otaInstructions): self
     {
-        $this->ota_instructions = $ota_instructions;
+        $this->otaInstructions = $otaInstructions;
 
         return $this;
     }
