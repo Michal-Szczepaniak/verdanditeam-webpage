@@ -14,7 +14,7 @@ class MainController extends Controller
      * @Route("/", name="main")
      * @Template()
      */
-    public function index()
+    public function index(): array
     {
         return [];
     }

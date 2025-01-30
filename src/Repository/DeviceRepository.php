@@ -21,7 +21,18 @@ class DeviceRepository extends ServiceEntityRepository
         parent::__construct($registry, Device::class);
     }
 
-    public function findAllByOrder($order = 'DESC'): ?array
+    public function findOneByName(string $name): ?Device
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.names', 'names')
+            ->andWhere('names.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findAllByOrder(string $order = 'DESC'): ?array
     {
         return $this->createQueryBuilder('d')
             ->orderBy('d.order', $order)

@@ -7,7 +7,7 @@
 <html>
 <head>
     {% if device is not null %}
-    <title>VerdandiTeam Website - Device {{ device.name }}</title>
+    <title>VerdandiTeam Website - Device {{ device.names.first.name }}</title>
     {% else %}
     <title>VerdandiTeam Website - Device not found</title>
     {% endif %}
@@ -41,9 +41,9 @@
 <div id="wrapper">
 
     <!-- Intro -->
-    <section id="deviceIntro" class="wrapper style1 fullscreen fade-up" style="background-image: url(/images/{{ device.name }}.jpg)">
+    <section id="deviceIntro" class="wrapper style1 fullscreen fade-up" style="background-image: url(/images/{{ device.names.first.name }}.jpg)">
         <div class="inner">
-            <h1>{{ device.namePretty }}</h1>
+            <h1>{{ device.names.first.namePretty }}</h1>
             <p>{{ device.description }}</p>
             <ul class="actions">
                 <li><a href="/" class="button">Go back to main page</a></li>
@@ -134,7 +134,7 @@
         </div>
     </section>
 
-    {% if device.haveOta %}
+    {% if device.hasOta %}
     <!-- Second Two -->
     <section id="two" class="wrapper style3-alt fade-up">
         <div class="inner">

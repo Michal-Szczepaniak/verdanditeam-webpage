@@ -51,10 +51,10 @@
             <section>
                 <div class="content">
                     <div class="inner">
-                        <h2>{{ device.namePretty }}</h2>
+                        <h2>{{ device.names.first.namePretty }}</h2>
                         <p>{{ device.descriptionLong }}</p>
                         <ul class="actions">
-                            <li><a href="/device/{{ device.name }}" class="button">Learn more</a></li>
+                            <li><a href="/device/{{ device.names.first.name }}" class="button">Learn more</a></li>
                         </ul>
                     </div>
                 </div>

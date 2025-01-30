@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Device;
+use App\Entity\DeviceName;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +15,7 @@ class ApiController extends Controller
     /**
      * @Route("/api/device/list", name="api_list")
      */
-    public function list()
+    public function list(): JsonResponse
     {
         $devices = $this->getDoctrine()->
             getRepository(Device::class)->findAll();
@@ -27,11 +28,11 @@ class ApiController extends Controller
     /**
      * @Route("/api/device/{name}", name="api_device")
      */
-    public function device($name)
+    public function device($name): JsonResponse
     {
         $device = $this->getDoctrine()->
         getRepository(Device::class)->
-        findOneBy(['name' => $name]);
+        findOneByName($name);
 
         $info = $this->getDeviceInfo($device);
 
@@ -41,7 +42,7 @@ class ApiController extends Controller
     /**
      * @Route("/api/device/{name}/links", name="api_links")
      */
-    public function links($name)
+    public function links($name): JsonResponse
     {
         $device = $this->getDoctrine()->
             getRepository(Device::class)->
@@ -52,19 +53,14 @@ class ApiController extends Controller
         return new JsonResponse($links);
     }
 
-    /**
-     * Create array with limited device properties
-     *
-     * @return array
-     */
-    private function prepareDevicesList(array $devices)
+    private function prepareDevicesList(array $devices): array
     {
         $devicesArray = [];
 
         /** @var Device $device */
         foreach ($devices as $device) {
             $devicesArray[] = [
-                'codename' => $device->getName(),
+                'codenames' => $device->getNames()->map(fn (DeviceName $name) => $name->getName())->toArray(),
                 'name_pretty' => $device->getNamePretty(),
                 'description' => $device->getDescription(),
                 'description_long' => $device->getDescriptionLong(),
@@ -74,39 +70,21 @@ class ApiController extends Controller
         return $devicesArray;
     }
 
-    /**
-     * Get download links
-     *
-     * @param $device Device
-     *
-     * @return array
-     */
-    private function getLinksFromDevice($device)
+    private function getLinksFromDevice($device): array
     {
-        $links = [
+        return [
             'cm' => $device->getDownloadCm(),
             'sfos' => $device->getDownloadSFOS(),
             'logo' => $device->getDownloadLogo(),
         ];
-
-        return $links;
     }
 
-    /**
-     * Get device info
-     *
-     * @param $device Device
-     *
-     * @return array
-     */
-    private function getDeviceInfo($device)
+    private function getDeviceInfo($device): array
     {
-        $info = [
+        return [
             'sfos_version' => $device->getSfosVersion(),
             'has_ota' => $device->getHasOta(),
             'has_logo' => $device->getDownloadLogo() !== null,
         ];
-
-        return $info;
     }
 }

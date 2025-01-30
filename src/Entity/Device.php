@@ -4,89 +4,108 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\DeviceRepository")
- */
+#[ORM\Entity(repositoryClass: "App\Repository\DeviceRepository")]
 class Device
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: "integer")]
+    #[ORM\GeneratedValue]
+    private ?int $id = null;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $name;
+    #[ORM\OneToMany(
+        mappedBy: "device",
+        targetEntity: "App\Entity\DeviceName",
+        cascade: ["persist", "remove"],
+        orphanRemoval: true)
+    ]
+    private Collection $names;
 
-    /** @ORM\Column(type="integer") */
-    private $order;
+    #[ORM\Column(type: "integer")]
+    private ?int $order = null;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $sfosVersion;
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $sfosVersion = null;
 
-    /** @ORM\Column(type="boolean") */
-    private $hasOta;
+    #[ORM\Column(type: "boolean")]
+    private ?bool $hasOta = null;
 
-    /** @ORM\Column(type="text") */
-    private $xdaLink;
+    #[ORM\Column(type: "text")]
+    private ?string $xdaLink = null;
 
-    /** @ORM\Column(type="text") */
-    private $brokenList;
+    #[ORM\Column(type: "text")]
+    private ?string $brokenList = null;
 
-    /** @ORM\Column(type="string", length=255) */
-    private $name_pretty;
+    #[ORM\Column(type: "text")]
+    private ?string $description = null;
 
-    /** @ORM\Column(type="text") */
-    private $description;
+    #[ORM\Column(type: "text")]
+    private ?string $descriptionLong = null;
 
-    /** @ORM\Column(type="text") */
-    private $descriptionLong;
+    #[ORM\Column(type: "text")]
+    private ?string $workingList = null;
 
-    /** @ORM\Column(type="text") */
-    private $workingList;
+    #[ORM\Column(type: "text")]
+    private ?string $installDescription = null;
 
-    /** @ORM\Column(type="text") */
-    private $installDescription;
+    #[ORM\Column(type: "text")]
+    private ?string $downloadCm = null;
 
-    /** @ORM\Column(type="text") */
-    private $downloadCm;
+    #[ORM\Column(type: "text")]
+    private ?string $downloadSFOS = null;
 
-    /** @ORM\Column(type="text") */
-    private $downloadSFOS;
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $downloadLogo = null;
 
-    /** @ORM\Column(type="text", nullable=true) */
-    private $downloadLogo;
+    #[ORM\Column(type: "text")]
+    private ?string $installPreparations = null;
 
-    /** @ORM\Column(type="text") */
-    private $installPreparations;
+    #[ORM\Column(type: "text")]
+    private ?string $installInstructions = null;
 
-    /** @ORM\Column(type="text") */
-    private $installInstructions;
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $otaDescription = null;
 
-    /** @ORM\Column(type="text", nullable=true) */
-    private $otaDescription;
+    #[ORM\Column(type: "text", nullable: true)]
+    private ?string $otaInstructions = null;
 
-    /** @ORM\Column(type="text", nullable=true) */
-    private $otaInstructions;
+    public function __construct()
+    {
+        $this->names = new ArrayCollection();
+    }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getNames(): Collection
     {
-        return $this->name;
+        return $this->names;
     }
 
-    public function setName(string $name): self
+    public function addName(string $name): self
     {
-        $this->name = $name;
+        if (!$this->hasName($name)) {
+            $this->names->add($name);
+        }
 
         return $this;
+    }
+
+    public function removeName(string $name): self
+    {
+        if ($this->hasName($name)) {
+            $this->names->removeElement($name);
+        }
+    }
+
+    public function hasName(string $name): bool
+    {
+        return $this->names->contains($name);
     }
 
     public function getSfosVersion(): ?string
@@ -133,18 +152,6 @@ class Device
     public function setBrokenList(string $brokenList): self
     {
         $this->brokenList = $brokenList;
-
-        return $this;
-    }
-
-    public function getNamePretty(): ?string
-    {
-        return $this->name_pretty;
-    }
-
-    public function setNamePretty(string $name_pretty): self
-    {
-        $this->name_pretty = $name_pretty;
 
         return $this;
     }

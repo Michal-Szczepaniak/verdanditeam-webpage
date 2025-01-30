@@ -15,7 +15,7 @@ class DeviceController extends Controller
      * @Route("/device/list", name="list")
      * @Template()
      */
-    public function list()
+    public function list(): array
     {
         $devices = $this->getDoctrine()->getRepository(Device::class)->findAllByOrder();
 
@@ -26,11 +26,11 @@ class DeviceController extends Controller
      * @Route("/device/{name}", name="device")
      * @Template()
      */
-    public function index($name)
+    public function index($name): array
     {
         $device = $this->getDoctrine()->
             getRepository(Device::class)->
-            findOneBy(['name' => $name]);
+            findOneByName($name);
 
         return ['device' => $device];
     }

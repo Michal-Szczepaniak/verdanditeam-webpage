@@ -15,7 +15,7 @@ class Version20180504123554 extends AbstractMigration
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
         $this->addSql('CREATE TEMPORARY TABLE __temp__device AS SELECT id, name, sfos_version, have_ota, xda_link, broken_list, name_pretty, description FROM device');
         $this->addSql('DROP TABLE device');
@@ -27,7 +27,7 @@ class Version20180504123554 extends AbstractMigration
     public function down(Schema $schema)
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', 'Migration can only be executed safely on \'sqlite\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'sqlite', "Migration can only be executed safely on 'sqlite'.");
 
         $this->addSql('CREATE TEMPORARY TABLE __temp__device AS SELECT id, name, sfos_version, have_ota, xda_link, broken_list, name_pretty, description FROM device');
         $this->addSql('DROP TABLE device');
