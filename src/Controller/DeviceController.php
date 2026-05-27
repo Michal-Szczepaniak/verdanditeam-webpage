@@ -6,10 +6,10 @@ namespace App\Controller;
 
 use App\Entity\Device;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DeviceController extends Controller
+class DeviceController extends AbstractController
 {
     /**
      * @Route("/device/list", name="list")

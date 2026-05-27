@@ -6,11 +6,11 @@ namespace App\Controller;
 
 use App\Entity\Device;
 use App\Entity\DeviceName;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     /**
      * @Route("/api/device/list", name="api_list")
