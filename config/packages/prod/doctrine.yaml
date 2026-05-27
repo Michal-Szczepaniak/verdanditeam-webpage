@@ -2,25 +2,22 @@ doctrine:
     orm:
         metadata_cache_driver:
             type: service
-            id: doctrine.system_cache_provider
+            id: cache.system
         query_cache_driver:
             type: service
-            id: doctrine.system_cache_provider
+            id: cache.system
         result_cache_driver:
             type: service
-            id: doctrine.result_cache_provider
+            id: cache.app
 
 services:
-    doctrine.result_cache_provider:
-        class: Symfony\Component\Cache\DoctrineProvider
+    doctrine.result_cache_pool:
+        alias: cache.app
         public: false
-        arguments:
-            - '@doctrine.result_cache_pool'
-    doctrine.system_cache_provider:
-        class: Symfony\Component\Cache\DoctrineProvider
+
+    doctrine.system_cache_pool:
+        alias: cache.system
         public: false
-        arguments:
-            - '@doctrine.system_cache_pool'
 
 framework:
     cache:
