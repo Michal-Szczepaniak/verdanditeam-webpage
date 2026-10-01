@@ -40,6 +40,12 @@ class Device
     private ?string $brokenList = null;
 
     #[ORM\Column(type: "text")]
+    private ?string $author = null;
+
+    #[ORM\Column(type: "text")]
+    private ?string $authorEmail = null;
+
+    #[ORM\Column(type: "text")]
     private ?string $description = null;
 
     #[ORM\Column(type: "text")]
@@ -154,6 +160,26 @@ class Device
         $this->brokenList = $brokenList;
 
         return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): void
+    {
+        $this->author = $author;
+    }
+
+    public function getAuthorEmail(): ?string
+    {
+        return $this->authorEmail;
+    }
+
+    public function setAuthorEmail(?string $authorEmail): void
+    {
+        $this->authorEmail = $authorEmail;
     }
 
     public function getDescription(): ?string

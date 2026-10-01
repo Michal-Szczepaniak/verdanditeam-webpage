@@ -44,6 +44,11 @@
     <section id="deviceIntro" class="wrapper style1 fullscreen fade-up" style="background-image: url(/images/{{ device.names.first.name }}.jpg)">
         <div class="inner">
             <h1>{{ device.names.first.namePretty }}</h1>
+            <h6>
+                {%- if device.authorEmail -%}<a href="mailto:{{ device.authorEmail }}">{%- endif -%}
+                    Author: {{ device.author }}
+                {%- if device.authorEmail -%}</a>{%- endif -%}
+            </h6>
             <p>{{ device.description }}</p>
             <ul class="actions">
                 <li><a href="/" class="button">Go back to main page</a></li>
