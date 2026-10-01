@@ -52,6 +52,7 @@
             <p>{{ device.description }}</p>
             <ul class="actions">
                 <li><a href="/" class="button">Go back to main page</a></li>
+                <li><a href="{{ device.xdaLink }}" class="button">Go to release forum thread</a></li>
             </ul>
         </div>
     </section>
@@ -102,7 +103,7 @@
             <p>{{ device.installDescription }}</p>
 
             <h3>Download</h3>
-            <h4>CyanogenMod base for</h4>
+            <h4>LineageOS base for</h4>
             <ul class="actions">
                 {% for name,link in device.downloadCm %}
                 <li><a class="button" target="_blank" href="{{ link }}">{{ name }}</a></li>
