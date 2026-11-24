@@ -1,6 +1,0 @@
-services:
-    logger:
-        class: Symfony\Component\HttpKernel\Log\Logger
-        arguments:
-            $minLevel: 'warning'
-            $output: '%kernel.logs_dir%/%kernel.environment%.log'

@@ -23,5 +23,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    logger:
+        class: Symfony\Component\HttpKernel\Log\Logger
+        arguments:
+            $minLevel: 'warning'
+            $output: '%kernel.logs_dir%/%kernel.environment%.log'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
