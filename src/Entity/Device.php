@@ -36,8 +36,8 @@ class Device
     #[ORM\Column(type: "text")]
     private ?string $xdaLink = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $brokenList = null;
+    #[ORM\Column(type: "json")]
+    private ?array $brokenList = null;
 
     #[ORM\Column(type: "text")]
     private ?string $author = null;
@@ -51,32 +51,32 @@ class Device
     #[ORM\Column(type: "text")]
     private ?string $descriptionLong = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $workingList = null;
+    #[ORM\Column(type: "json")]
+    private ?array $workingList = null;
 
     #[ORM\Column(type: "text")]
     private ?string $installDescription = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $downloadCm = null;
+    #[ORM\Column(type: "json")]
+    private ?array $downloadCm = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $downloadSFOS = null;
+    #[ORM\Column(type: "json")]
+    private ?array $downloadSFOS = null;
 
-    #[ORM\Column(type: "text", nullable: true)]
-    private ?string $downloadLogo = null;
+    #[ORM\Column(type: "json", nullable: true)]
+    private ?array $downloadLogo = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $installPreparations = null;
+    #[ORM\Column(type: "json")]
+    private ?array $installPreparations = null;
 
-    #[ORM\Column(type: "text")]
-    private ?string $installInstructions = null;
+    #[ORM\Column(type: "json")]
+    private ?array $installInstructions = null;
 
     #[ORM\Column(type: "text", nullable: true)]
     private ?string $otaDescription = null;
 
-    #[ORM\Column(type: "text", nullable: true)]
-    private ?string $otaInstructions = null;
+    #[ORM\Column(type: "json", nullable: true)]
+    private ?array $otaInstructions = null;
 
     public function __construct()
     {
@@ -152,10 +152,10 @@ class Device
 
     public function getBrokenList(): ?array
     {
-        return json_decode($this->brokenList, true);
+        return $this->brokenList;
     }
 
-    public function setBrokenList(string $brokenList): self
+    public function setBrokenList(?array $brokenList): self
     {
         $this->brokenList = $brokenList;
 
@@ -208,10 +208,10 @@ class Device
 
     public function getWorkingList(): ?array
     {
-        return json_decode($this->workingList, true);
+        return $this->workingList;
     }
 
-    public function setWorkingList(string $workingList): self
+    public function setWorkingList(?array $workingList): self
     {
         $this->workingList = $workingList;
 
@@ -232,10 +232,10 @@ class Device
 
     public function getDownloadCm(): ?array
     {
-        return json_decode($this->downloadCm, true);
+        return $this->downloadCm;
     }
 
-    public function setDownloadCm(string $downloadCm): self
+    public function setDownloadCm(?array $downloadCm): self
     {
         $this->downloadCm = $downloadCm;
 
@@ -244,22 +244,22 @@ class Device
 
     public function getDownloadSFOS(): ?array
     {
-        return json_decode($this->downloadSFOS, true);
+        return $this->downloadSFOS;
     }
 
-    public function setDownloadSFOS(string $downloadSFOS): self
+    public function setDownloadSFOS(?array $downloadSFOS): self
     {
         $this->downloadSFOS = $downloadSFOS;
 
         return $this;
     }
 
-    public function getDownloadLogo(): ?string
+    public function getDownloadLogo(): ?array
     {
         return $this->downloadLogo;
     }
 
-    public function setDownloadLogo(string $downloadLogo): self
+    public function setDownloadLogo(array $downloadLogo): self
     {
         $this->downloadLogo = $downloadLogo;
 
@@ -268,10 +268,10 @@ class Device
 
     public function getInstallPreparations(): ?array
     {
-        return json_decode($this->installPreparations, true);
+        return $this->installPreparations;
     }
 
-    public function setInstallPreparations(string $installPreparations): self
+    public function setInstallPreparations(?array $installPreparations): self
     {
         $this->installPreparations = $installPreparations;
 
@@ -280,10 +280,10 @@ class Device
 
     public function getInstallInstructions(): ?array
     {
-        return json_decode($this->installInstructions, true);
+        return $this->installInstructions;
     }
 
-    public function setInstallInstructions(string $installInstructions): self
+    public function setInstallInstructions(?array $installInstructions): self
     {
         $this->installInstructions = $installInstructions;
 
@@ -304,10 +304,10 @@ class Device
 
     public function getOtaInstructions(): ?array
     {
-        return json_decode($this->otaInstructions, true);
+        return $this->otaInstructions;
     }
 
-    public function setOtaInstructions(?string $otaInstructions): self
+    public function setOtaInstructions(?array $otaInstructions): self
     {
         $this->otaInstructions = $otaInstructions;
 

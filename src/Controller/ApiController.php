@@ -46,11 +46,25 @@ class ApiController extends AbstractController
     {
         $device = $this->getDoctrine()->
             getRepository(Device::class)->
-            findOneBy(['name' => $name]);
+            findOneByName($name);
 
         $links = $this->getLinksFromDevice($device);
 
         return new JsonResponse($links);
+    }
+
+    /**
+     * @Route("/api/device/{name}/info", name="api_info")
+     */
+    public function info($name): JsonResponse
+    {
+        $device = $this->getDoctrine()->
+            getRepository(Device::class)->
+            findOneByName($name);
+
+        $info = $this->getDevicePortInfo($device);
+
+        return new JsonResponse($info);
     }
 
     private function prepareDevicesList(array $devices): array
@@ -59,9 +73,11 @@ class ApiController extends AbstractController
 
         /** @var Device $device */
         foreach ($devices as $device) {
+            $deviceNames = $device->getNames();
+
             $devicesArray[] = [
-                'codenames' => $device->getNames()->map(fn (DeviceName $name) => $name->getName())->toArray(),
-                'name_pretty' => $device->getNamePretty(),
+                'codenames' => $deviceNames->map(fn (DeviceName $name) => $name->getName())->toArray(),
+                'name_pretty' => $deviceNames->map(fn (DeviceName $name) => $name->getNamePretty())->toArray(),
                 'description' => $device->getDescription(),
                 'description_long' => $device->getDescriptionLong(),
             ];
@@ -70,7 +86,7 @@ class ApiController extends AbstractController
         return $devicesArray;
     }
 
-    private function getLinksFromDevice($device): array
+    private function getLinksFromDevice(Device $device): array
     {
         return [
             'cm' => $device->getDownloadCm(),
@@ -79,12 +95,21 @@ class ApiController extends AbstractController
         ];
     }
 
-    private function getDeviceInfo($device): array
+    private function getDeviceInfo(Device $device): array
     {
         return [
             'sfos_version' => $device->getSfosVersion(),
             'has_ota' => $device->getHasOta(),
             'has_logo' => $device->getDownloadLogo() !== null,
+        ];
+    }
+
+    private function getDevicePortInfo(Device $device): array
+    {
+        return [
+            'forum_url' => $device->getXdaLink(),
+            'author' => $device->getAuthor(),
+            'author_email' => $device->getAuthorEmail(),
         ];
     }
 }

@@ -120,7 +120,9 @@
             {% if device.downloadLogo is not null %}
             <h4>Optional bootlogo</h4>
             <ul class="actions">
-                <li><a class="button" target="_blank" href="{{ device.downloadLogo }}">bootlogo</a></li>
+                {% for name,link in device.downloadSfos %}
+                    <li><a class="button" target="_blank" href="{{ link }}">{{ name }}</a></li>
+                {% endfor %}
             </ul>
             {% endif %}
 
